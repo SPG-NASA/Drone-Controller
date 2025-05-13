@@ -1,0 +1,45 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html>
+<head><title>Controller Bridge</title></head>
+<body>
+  <h1>
+    Send controller input here
+  </h1>
+<script>
+  const socket = new WebSocket('ws://localhost:8080');
+
+  socket.addEventListener('open', () => {
+    console.log('[WS] Connected to backend');
+  });
+
+  function getGamepad() {
+    const pads = navigator.getGamepads();
+    return pads[0];
+  }
+
+  function loop() {
+    const gp = getGamepad();
+    if (gp && socket.readyState === WebSocket.OPEN) {
+      socket.send(JSON.stringify({
+        leftStick: {
+          x: gp.axes[0],
+          y: gp.axes[1]
+        },
+        rightStick: {
+          x: gp.axes[2],
+          y: gp.axes[3]
+        },
+        buttons: gp.buttons.map(btn => btn.pressed)
+      }));
+    }
+    requestAnimationFrame(loop);
+  }
+
+  window.addEventListener('gamepadconnected', () => {
+    console.log('[Gamepad] Connected');
+    loop();
+  });
+</script>
+</body>
+</html>

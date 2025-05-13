@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Viewer</title>
+</head>
+<body style="margin:0; background:black; display:flex; justify-content:center; align-items:center; height:100vh;">
+    <canvas id="imageCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('imageCanvas');
+        const ctx = canvas.getContext('2d');
+
+        const img = new Image();
+        img.src = '../drone_picture.jpg';
+
+        img.onload = async () => {
+            const imgWidth = img.width;
+            const imgHeight = img.height;
+
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+
+            const scale = Math.min(
+                windowWidth / imgWidth,
+                windowHeight / imgHeight,
+            );
+
+            const displayWidth = imgWidth * scale;
+            const displayHeight = imgHeight * scale;
+
+            canvas.width = windowWidth;
+            canvas.height = windowHeight;
+
+            const offsetX = (windowWidth - displayWidth) / 2;
+            const offsetY = (windowHeight - displayHeight) / 2;
+
+            for (let y = 0; y < img.height; y++) {
+                ctx.drawImage(
+                    img,
+                    0, y, img.width, 1,
+                    offsetX,
+                    offsetY + y * scale,
+                    displayWidth, scale,
+                );
+                await new Promise(resolve => setTimeout(resolve, 10));
+            }
+        };
+    </script>
+</body>
+</html>

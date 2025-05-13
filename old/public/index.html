@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parrot AR 2.0 Drone Controller</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <h1>🛸 Parrot AR 2.0 Drone Controller</h1>
+    <p id="status">Checking drone status...</p>
+    <p id="controller-status">🎮 Controller: Not Connected</p>
+
+    <h2>📊 Drone Info Panel</h2>
+    <div class="drone-info">
+        <p>🔋 Battery: <span id="battery">--%</span></p>
+        <p>📡 Signal: <span id="signal">--</span></p>
+        <p>📏 Altitude: <span id="altitude">-- m</span></p>
+        <p>🚀 Speed: <span id="speed">-- m/s</span></p>
+    </div>
+
+    <h2>🎮 Controls</h2>
+    <div class="controls">
+        <button onclick="takeoff()">🛫 Takeoff</button>
+        <button onclick="land()">🛬 Land</button>
+        <button onclick="emergency()">🛑 Emergency Stop</button>
+    </div>
+
+    <h2>🕹️ Movement</h2>
+    <div class="movement-controls">
+        <button onclick="move('forward')">⬆️ Forward</button>
+        <button onclick="move('backward')">⬇️ Backward</button>
+        <button onclick="move('left')">⬅️ Left</button>
+        <button onclick="move('right')">➡️ Right</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
